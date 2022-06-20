@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 export default function FavoriteAdd(){
 
     const navigate = useNavigate();
+	const [favoriteBody, setFavoriteBody] = useState([]);
 	const [movie, setMovie] = useContext(movieContext);
 	const [searchValue, setSearchValue] = useState('');
     const url2 = "http://localhost:9005";
@@ -53,6 +54,25 @@ export default function FavoriteAdd(){
 		}
     }
 
+	async function findAll() {
+        try {
+            const response = await fetch(`${url}/favorite/${emailInput.current.value}`);
+            const favorites = await response.json();
+            const favoriteRows = favorites.map((e) => {
+                return (
+                    <tr>
+                         <td>{e.movieId}</td>
+                    </tr>
+                );
+            })
+            setFavoriteBody(favoriteRows);
+            console.log(favorites);
+
+        } catch (e){
+            console.error(e);
+        }
+    }
+
 
 
     return (
@@ -64,9 +84,22 @@ export default function FavoriteAdd(){
 		<h1>Movie ID: {movie}</h1>
 		<input placeholder= "Enter Your Email" ref ={accountEmailInput}></input>
 		<Button onClick={addFav}>Add To Favorites</Button>
+		<br></br>
+		<br></br>
+		<br></br>
+		<input placeholder="Enter Your Email" ref={emailInput}></input>
+            <Button onClick={findAll}>Find Your Favorites</Button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>movie Id</th>
+                    </tr>
+                </thead>
+                <tbody>{favoriteBody}</tbody>
+            </table>
 		<div className='container-fluid ross-movie-app'>
 			
-			</div>
+		</div>
 		
 		</>
 	);

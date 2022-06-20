@@ -18,10 +18,10 @@ export default function OrderRent(){
 
         const user = {
             movieId: movie,
-            orderDate: "06/17/2022",
+            orderDate: "06/22/2022",
             balance: 5,
             isOwned: false,
-            returnDate: "07/01/2022",
+            returnDate: "07/06/2022",
             orderEmail: orderEmailInput.current.value,
         };
         try {
