@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import {BrowserRouter, Route, Routes} from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "./components/navbar.jsx";
 import FindMovie from "./components/movies/FindMovie.jsx";
 import OrderBuy from "./components/order/order-buy.jsx";
@@ -19,32 +19,42 @@ import FavoriteDelete from "./components/favorites/favorite-delete.jsx";
 import OrderRent from "./components/order/order-rent.jsx";
 import OrderFindAll from "./components/order/order-viewall.jsx";
 import Logout from "./components/customer/customer-logout.jsx";
-
+import Footer from "./footer";
 
 export const userContext = createContext();
 export const movieContext = createContext();
 
 function App() {
   const [user, setUser] = useState({ email: "Guest" });
-  const [movie, setMovie]= useState({imdbID: "null"})
+  const [movie, setMovie] = useState({ imdbID: "null" });
   return (
-      <>
+    <>
       <BrowserRouter>
-      <userContext.Provider value={[user, setUser]}>
-      <movieContext.Provider value={[movie, setMovie]}>
-          <NavBar />
-          <Routes>
-                
-
-              <Route path= "/" element={<FindMovie/>}/>
-              <Route path="buyMovie" element={<OrderBuy/>}/>
+        <userContext.Provider value={[user, setUser]}>
+          <movieContext.Provider value={[movie, setMovie]}>
+            <NavBar />
+            <Routes>
+              <Route path="/" element={<FindMovie />} />
+              <Route path="buyMovie" element={<OrderBuy />} />
               <Route path="login" element={<CustomerLogin />} />
               <Route path="register" element={<CustomerRegister />} />
-              <Route path="delete" element={<CustomerDelete></CustomerDelete>} />
-              <Route path="dashboard" element={<CustomerDashboard></CustomerDashboard>} />
+              <Route
+                path="delete"
+                element={<CustomerDelete></CustomerDelete>}
+              />
+              <Route
+                path="dashboard"
+                element={<CustomerDashboard></CustomerDashboard>}
+              />
               <Route path="ccadd" element={<CreditCardAdd></CreditCardAdd>} />
-              <Route path="ccupd" element={<CreditCardUpdate></CreditCardUpdate>} />
-              <Route path="ccdel" element={<CreditCardDelete></CreditCardDelete>} />
+              <Route
+                path="ccupd"
+                element={<CreditCardUpdate></CreditCardUpdate>}
+              />
+              <Route
+                path="ccdel"
+                element={<CreditCardDelete></CreditCardDelete>}
+              />
               <Route path="ccbuy" element={<CreditCardBuy />} />
               <Route path="ccrent" element={<CreditCardRent />} />
               <Route path="ccall" element={<CCFindAll />} />
@@ -55,14 +65,12 @@ function App() {
               <Route path="favall" element={<FavoriteFindAll />} />
               <Route path="favdel" element={<FavoriteDelete />} />
               <Route path="logout" element={<Logout />} />
-                
-          </Routes>
+            </Routes>
+            <Footer />
           </movieContext.Provider>
-          </userContext.Provider>
+        </userContext.Provider>
       </BrowserRouter>
-      
-  </>
-
+    </>
   );
 }
 

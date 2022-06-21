@@ -1,0 +1,18 @@
+h4 {
+  text-align: center;
+}
+
+.input-box {
+  margin-left: 300px;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.box {
+  margin: 30px 50px;
+}
+
+.btn {
+  margin-left: 50px;
+}

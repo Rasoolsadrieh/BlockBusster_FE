@@ -1,0 +1,10 @@
+.container {
+  margin: 60px 10px;
+}
+
+.nav {
+  justify-content: space-between;
+  font-size: 40px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
