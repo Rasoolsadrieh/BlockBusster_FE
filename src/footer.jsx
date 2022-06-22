@@ -1,5 +1,5 @@
 import React from "react";
-import blockbuster from "./components/image/blockbuster.png";
+import blockbuster from "./components/image/Block_Busster (1).png";
 import "./footer.css";
 
 function Footer() {
