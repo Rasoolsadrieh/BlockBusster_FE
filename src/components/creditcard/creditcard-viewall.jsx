@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import { userContext } from "../../App";
 
 export default function CCFindAll(){
 
@@ -10,10 +11,11 @@ export default function CCFindAll(){
     const [creditCardBody, setCreditCardBody] = useState([]);
     const url = "http://localhost:9005";
     const emailInput = useRef();
+    const [user, setUser] = useContext(userContext);
 
     async function findAll() {
         try {
-            const response = await fetch(`${url}/creditcard/${emailInput.current.value}`);
+            const response = await fetch(`${url}/creditcard/${user.email}`);
             const creditCards = await response.json();
             const ccRows = creditCards.map((e) => {
                 return (
@@ -44,7 +46,6 @@ export default function CCFindAll(){
             <br></br>
             <br></br>
             <br></br>
-            <input placeholder="Enter Your Email" ref={emailInput}></input>
             <Button onClick={findAll}>View Your CreditCards</Button>
             <table>
                 <thead>

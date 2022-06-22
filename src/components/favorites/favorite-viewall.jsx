@@ -1,19 +1,22 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import { userContext } from "../../App";
 
 export default function FavoriteFindAll() {
 
     const navigate = useNavigate();
     const [favoriteBody, setFavoriteBody] = useState([]);
+    const [user, setUser] = useContext(userContext);
+
     const url = "http://localhost:9005";
     const emailInput = useRef();
 
     async function findAll() {
         try {
-            const response = await fetch(`${url}/favorite/${emailInput.current.value}`);
+            const response = await fetch(`${url}/favorite/${user.email}`);
             const favorites = await response.json();
             const favoriteRows = favorites.map((e) => {
                 return (
@@ -39,7 +42,6 @@ export default function FavoriteFindAll() {
             <br></br>
             <br></br>
             <br></br>
-            <input placeholder="Enter Your Email" ref={emailInput}></input>
             <Button onClick={findAll}>Find Your Favorites</Button>
             <table>
                 <thead>

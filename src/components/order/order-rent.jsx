@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext, useRef } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { movieContext } from "../../App";
+import { movieContext, userContext } from "../../App";
 import { Button } from "@mui/material";
 
 export default function OrderRent(){
@@ -12,20 +12,23 @@ export default function OrderRent(){
     const movieIdInput = useRef();
     const orderDateInput = useRef();
     const orderEmailInput = useRef();
+    const [user, setUser] = useContext(userContext);
+
     const url = "http://localhost:9005";
 
     async function orderRent(){
 
-        const user = {
+        const rentUser = {
             movieId: movie,
             orderDate: "06/17/2022",
             balance: 5,
             isOwned: false,
             returnDate: "07/01/2022",
-            orderEmail: orderEmailInput.current.value,
+            orderEmail: user.email
         };
         try {
-            const response = await axios.post(`${url}/order`, user);
+            console.log(user)
+            const response = await axios.post(`${url}/order`, rentUser);
             console.log(response.data);
             navigate("/ccrent");
         } catch (error) {
@@ -46,7 +49,6 @@ export default function OrderRent(){
             <h4>Place an order Below.</h4>
             <h6>Each Movie is $5 to rent.</h6>
             <h1>Movie Id:{movie}</h1>
-            <input placeholder="Enter Your Email" ref={orderEmailInput}></input>
             <Button onClick={orderRent}>Place Order</Button>
  
         </>

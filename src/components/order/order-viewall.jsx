@@ -1,19 +1,21 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import { userContext } from "../../App";
 
 export default function OrderFindAll(){
 
     const navigate = useNavigate();
     const [orderBody, setOrderBody] = useState([]);
+    const [user, setUser] = useContext(userContext);
     const url = "http://localhost:9005";
     const emailInput = useRef();
 
     async function findAll() {
         try {
-            const response = await fetch(`${url}/order/${emailInput.current.value}`);
+            const response = await fetch(`${url}/order/${user.email}`);
             const orders = await response.json();
             const ordRows = orders.map((e) => {
                 return (
@@ -42,7 +44,6 @@ export default function OrderFindAll(){
             <br></br>
             <br></br>
             <br></br>
-            <input placeholder="Enter Your Email" ref={emailInput}></input>
             <Button onClick={findAll}>View Your Orders</Button>
             <table>
                 <thead>

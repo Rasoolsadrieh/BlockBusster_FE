@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useRef } from 'react';
 import { Button } from '@mui/material';
+import { userContext } from '../../App';
 
 export default function FavoriteDelete() {
     
     const navigate = useNavigate();
     const [favoriteBody, setFavoriteBody] = useState([]);
+    const [user, setUser] = useContext(userContext);
+
     const url = "http://localhost:9005";
     
     const movieIdInput = useRef();
@@ -26,7 +29,7 @@ export default function FavoriteDelete() {
 
     async function findAll() {
         try {
-            const response = await fetch(`${url}/favorite/${emailInput.current.value}`);
+            const response = await fetch(`${url}/favorite/${user.email}`);
             const favorites = await response.json();
             const favoriteRows = favorites.map((e) => {
                 return (
@@ -61,7 +64,6 @@ export default function FavoriteDelete() {
             <br></br>
             <br></br>
             <br></br>
-            <input placeholder="Enter Your Email" ref={emailInput}></input>
             <Button onClick={findAll}>Find Your Favorites</Button>
             <table>
                 <thead>
