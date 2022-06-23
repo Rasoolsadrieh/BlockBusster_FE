@@ -73,7 +73,7 @@ export default function FavoriteAdd(){
 			
             const response = await axios.post(`${url2}/favorite`, favUser);
 			console.log(response.data);
-			navigate("/favall")
+			navigate("/favdel")
         } catch (error) {
 			console.error(error.response.data);
 			alert(error.response.data);
