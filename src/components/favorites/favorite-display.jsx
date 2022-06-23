@@ -20,6 +20,7 @@ export default function DisplayInfo(props, order){
 
     function getOrderInfo(props){
         console.log(props)
+        if(orders !== undefined){
         for(let i =0; i < orders.length; i++){
             if(orders[i].movieId === props){
                 return(
@@ -33,6 +34,7 @@ export default function DisplayInfo(props, order){
                 )
             }
         }
+    }
     }
 
 

@@ -13,18 +13,20 @@ export default function CreditCardBuy(){
     const [user, setUser] = useContext(userContext);
     const [credit, setCredit] = useContext(creditContext);
 
+        console.log(credit)
+       
+        console.log(credit)
     async function updatecc() {
 
         try {
-            console.log(credit)
-            setCredit({ccNumber: credit.ccNumber, ccName: credit.ccName, cvv: credit.cvv, expDate: credit.expDate, zip: credit.zip, limit: credit.limit-10, customerEmail:user.email})
+            {setCredit({ccNumber: credit.ccNumber, ccName: credit.ccName, cvv: credit.cvv, expDate: credit.expDate, zip: credit.zip, limit: credit.limit-10, customerEmail:user.email})}
             console.log(credit)
             const response = await axios.put(`${url}/updatecc`, credit);
             console.log(response.data);
             navigate("/orderall");
         } catch (error) {
             console.error(error.response.data);
-            alert(error.response.data);
+            alert("Something Went Wrong Please Click Pay Order Again");
         }
 
     }
@@ -33,6 +35,7 @@ export default function CreditCardBuy(){
     return (
         <>
             <br></br>
+            
             <Button onClick={updatecc}>Pay Order </Button>
         </>
     )
