@@ -15,6 +15,7 @@ export default function MovieInfo(props){
     const output = movies.map((e,index) =>
     
     <div> 
+        {console.log("Movie Info")}
         <h1>{e.Title}</h1>
         <h2>{e.Year}</h2> 
         <br/>

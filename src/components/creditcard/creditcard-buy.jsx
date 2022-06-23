@@ -16,6 +16,7 @@ export default function CreditCardBuy(){
     async function updatecc() {
 
         try {
+            console.log(credit)
             setCredit({ccNumber: credit.ccNumber, ccName: credit.ccName, cvv: credit.cvv, expDate: credit.expDate, zip: credit.zip, limit: credit.limit-10, customerEmail:user.email})
             console.log(credit)
             const response = await axios.put(`${url}/updatecc`, credit);
