@@ -20,7 +20,7 @@ export default function OrderBuy(){
 
         const buyUser = {
             movieId: movie,
-            orderDate: "06/17/2022",
+            orderDate: "06/23/2022",
             balance: 10,
             isOwned: true,
             returnDate: "Owned",
