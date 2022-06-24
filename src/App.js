@@ -23,15 +23,18 @@ import Logout from "./components/customer/customer-logout.jsx";
 
 export const userContext = createContext();
 export const movieContext = createContext();
+export const creditContext = createContext();
 
 function App() {
   const [user, setUser] = useState({ email: "Guest" });
-  const [movie, setMovie]= useState({imdbID: "null"})
+  const [movie, setMovie]= useState({imdbID: "null"});
+  const [credit, setCredit] = useState({ccNumber: "null", ccName: "null", cvv: "null", expDate:"null", zip:"null", limit:"null", customerEmail:user.email})
   return (
       <>
       <BrowserRouter>
-      <userContext.Provider value={[user, setUser]}>
-      <movieContext.Provider value={[movie, setMovie]}>
+    <userContext.Provider value={[user, setUser]}>
+    <movieContext.Provider value={[movie, setMovie]}>
+    <creditContext.Provider value={[credit, setCredit]}>
           <NavBar />
           <Routes>
                 
@@ -57,6 +60,7 @@ function App() {
               <Route path="logout" element={<Logout />} />
                 
           </Routes>
+          </creditContext.Provider>
           </movieContext.Provider>
           </userContext.Provider>
       </BrowserRouter>

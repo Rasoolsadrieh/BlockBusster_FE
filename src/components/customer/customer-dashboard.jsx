@@ -1,13 +1,15 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { userContext } from "../../App";
+import { creditContext, userContext } from "../../App";
 import Logout from "./customer-logout";
 import { Button } from "@mui/material";
 
 export default function CustomerDashboard() {
     const [user, setUser] = useContext(userContext);
+    const [credit, setCredit] = useContext(creditContext);
     console.log(user);
-
+    console.log(credit);
+    
     const navigate = useNavigate();
 
     return (

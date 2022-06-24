@@ -1,7 +1,8 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import { creditContext, userContext } from "../../App";
 
 export default function CreditCardAdd(){
 
@@ -15,20 +16,23 @@ export default function CreditCardAdd(){
     const zipInput = useRef();
     const limitInput = useRef();
     const customerEmailInput = useRef();
+    const [user, setUser] = useContext(userContext);
+    const [credit, setCredit] = useContext(creditContext);
 
     async function createcc() {
-        const user = {
+        const ccUser = {
             ccNumber: ccNumberInput.current.value,
             ccName: ccNameInput.current.value,
             cvv: cvvInput.current.value,
             expDate: expDateInput.current.value,
             zip: zipInput.current.value,
             limit: limitInput.current.value,
-            customerEmail: customerEmailInput.current.value,
+            customerEmail: user.email
         };
         try {
-            const response = await axios.post(`${url}/registercc`, user);
+            const response = await axios.post(`${url}/registercc`, ccUser);
             console.log(response.data);
+            setCredit({...credit, ccNumber:ccUser.ccNumber, ccName: ccUser.ccName, cvv: ccUser.cvv, expDate: ccUser.expDate, zip: ccUser.zip, limit: ccUser.limit, customerEmail: ccUser.customerEmail})
             navigate("/dashboard");
         } catch (error) {
             console.error(error.response.data);
@@ -55,7 +59,6 @@ export default function CreditCardAdd(){
             <br></br>
             <input placeholder="Enter zip code" ref={zipInput}></input>
             <input placeholder="Enter Credit Card limit" ref={limitInput}></input>
-            <input placeholder="Enter Your Email" ref={customerEmailInput}></input>
             <br></br>
             <Button onClick={createcc}>Add Credit Card</Button>
         </>

@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useRef } from 'react';
-import { movieContext } from '../../App';
+import { movieContext, userContext } from '../../App';
 import Button from '@mui/material/Button';
 
 export default function FavoriteAdd(){
@@ -12,11 +12,16 @@ export default function FavoriteAdd(){
     const navigate = useNavigate();
 	const [movie, setMovie] = useContext(movieContext);
 	const [searchValue, setSearchValue] = useState('');
+	const [user, setUser] = useContext(userContext);
+
     const url2 = "http://localhost:9005";
     const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=76e93e0c`;
 
-    const movieidInput = useRef();
-    const accountEmailInput = useRef();
+    const [movieTitle, setMovieTitle] = useState('')
+	const [moviePoster, setMoviePoster] = useState('')
+	const [moviePlot, setMoviePlot] = useState('')
+    
+	
 
 	const getMovieRequest = async (searchValue) => {
 		// const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=76e93e0c`;
@@ -38,15 +43,37 @@ export default function FavoriteAdd(){
         navigate("/dashboard");
     }
 
-    async function addFav() {
+	async function getMovieInfo(){
+		try{
+			console.log(movieTitle)
+			const response = await fetch(`http://www.omdbapi.com/?i=${movie}&apikey=76e93e0c`);
+			const movieResponse = await response.json();
+			console.log(movieResponse)
+			console.log(movieResponse.Title)
+			setMovieTitle(movieResponse.Title)
+			setMoviePoster(movieResponse.Poster)
+			setMoviePlot(movieResponse.Plot)
+			
 
-        const user = {
+
+		}catch(error){
+			console.error(error.response.data);
+			alert(error.response.data);
+		}
+	}
+
+    async function addFav() {
+		console.log(user)
+
+        const favUser = {
             movieId : movie,
-            accountEmail : accountEmailInput.current.value,
+            accountEmail : user.email
         };
         try {
-            const response = await axios.post(`${url2}/favorite`, user);
+			
+            const response = await axios.post(`${url2}/favorite`, favUser);
 			console.log(response.data);
+			navigate("/favdel")
         } catch (error) {
 			console.error(error.response.data);
 			alert(error.response.data);
@@ -57,15 +84,19 @@ export default function FavoriteAdd(){
 
     return (
 		<>
+
 		<Button onClick={dashboardReturn}>Return to Dashboard</Button> 
 		<br></br>
 		<br></br>
 		<br></br>
-		<h1>Movie ID: {movie}</h1>
-		<input placeholder= "Enter Your Email" ref ={accountEmailInput}></input>
+		{movieTitle === getMovieInfo()}
+		<h1>Movie Title: {movieTitle}</h1>
+		<h5>  Plot: {moviePlot}</h5>
+		<img src = {moviePoster}/>
+		<br></br>
 		<Button onClick={addFav}>Add To Favorites</Button>
 		<div className='container-fluid ross-movie-app'>
-			
+
 			</div>
 		
 		</>

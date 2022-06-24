@@ -1,7 +1,8 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
+import { creditContext, userContext } from "../../App";
 
 export default function CreditCardUpdate(){
 
@@ -15,19 +16,14 @@ export default function CreditCardUpdate(){
     const zipInput = useRef();
     const limitInput = useRef();
     const customerEmailInput = useRef();
+    const [user, setUser] = useContext(userContext);
+    const [credit, setCredit] = useContext(creditContext);
 
     async function updatecc() {
-        const user = {
-            ccNumber: ccNumberInput.current.value,
-            ccName: ccNameInput.current.value,
-            cvv: cvvInput.current.value,
-            expDate: expDateInput.current.value,
-            zip: zipInput.current.value,
-            limit: limitInput.current.value,
-            customerEmail: customerEmailInput.current.value,
-        };
+        console.log(credit)
         try {
-            const response = await axios.put(`${url}/updatecc`, user);
+            console.log(credit)
+            const response = await axios.put(`${url}/updatecc`, credit);
             console.log(response.data);
             navigate("/dashboard");
         } catch (error) {
@@ -54,7 +50,6 @@ export default function CreditCardUpdate(){
             <br></br>
             <input placeholder="Enter zip code" ref={zipInput}></input>
             <input placeholder="Enter Credit Card limit" ref={limitInput}></input>
-            <input placeholder="Enter Your Email" ref={customerEmailInput}></input>
             <br></br>
             <Button onClick={updatecc}>Update Credit Card</Button>
         </>
