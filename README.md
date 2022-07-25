@@ -49,7 +49,7 @@ https://docs.google.com/document/d/1GDGMAWtaKeTs5jyoBrA__l0nNFGu01FDo3qKrQ75WiU/
 
 ## Collaborators
 - Jerry Faustin (JF)
-- Ross Seyedrasool Sadrieh (SRS)
+- Seyedrasool Sadrieh (SRS)
 - Maxwell Moord (MM)
 - Matthew Swaney (MS)
 - Jarrett McClenton (JM)
